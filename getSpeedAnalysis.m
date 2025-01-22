@@ -18,11 +18,12 @@ ang_time_scatter = 0;
 ang_time_heatmap = 0;
 speed_ang_scatter = 0;
 speed_ang_heatmap = 1;
-speed_curve_scatter = 1;
+speed_curve_scatter = 0;
 speed_curve_heatmap = 1;
 speed_time_plate = 1;
 roam_dwell_speed_ang = 1;
 roam_dwell_only_speed = 1;
+roam_dwell_speed_curve= 1;
 
 % Do you want the plots to pop up and stay up or close
 % 0 = keep them up
@@ -40,7 +41,7 @@ setPoint = 150; % MAY CHANGE - this is the denominator for the equation y = x/se
 speedPoint = 0.05; % MAY CHANGE - speed threshold for roaming vs dwelling (above is roaming)
 curvePoint = 200; % MAY CHANGE - this is the denominator for the equation y = x/curvePoint that separates roaming and dwelling based on speed vs curvature
 
-%Calulated from the hard coded variables
+%% Calulated from the hard coded variables
 binSize = frameRate * binSec; %calculate how many frames are in ten seconds
 nBins = totalFrames/binSize;
 videoSec = totalFrames/frameRate;
@@ -784,7 +785,7 @@ fractionDwelling = sum(estimatedStates == 2) / length(estimatedStates);
 fractionRoaming = sum(estimatedStates == 1) / length(estimatedStates);
 
 % Create stacked bar plot
-if roam_dwell_speed_ang == 1
+if roam_dwell_speed_curve == 1
     figure;
     bar(1:1, [fractionDwelling fractionRoaming], 0.5, 'stack');
     colormap([0 0 0.8; 1 0.4 0]);
