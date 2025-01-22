@@ -48,9 +48,9 @@ for f = 1:nFiles % each row of unlinkedData corresponds to a video file
     % the unlinkedData file first.
     if contains(name,"linkedTracks.mat")
         load(name);
-        unlinkedData = linkedTracks; % create unlinkedData.mat
+        unlinkTracks = linkedTracks; % create unlinkedData.mat
         % THIS IS THE LINE TO EDIT FOR CHANGING HOW TRACKS CONNECT:
-        unlinkedData = fix_tracks_allfields(unlinkedData); % remove random unwanted data 
+        unlinkTracks = fix_tracks_allfields(unlinkTracks); % remove random unwanted data 
         storeName = strrep(name,".linkedTracks.mat","");
     elseif contains(name,"linkedTracks.mat")
         load(name);
@@ -96,4 +96,7 @@ clearvars -except analysisPath dirPath conditionName unlinkedDataName
 
 %% Extract Speed, Roaming, and Dwelling Data
 
-getSpeedAnalysis(unlinkedDataName)
+getSpeedAnalysis(dirPath, unlinkedDataName, conditionName)
+
+%% Come back
+cd(analysisPath)
