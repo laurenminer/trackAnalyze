@@ -1,39 +1,22 @@
-%% Batch Analyze Tracks from a Single Condition
+function miniTrackAnalyze(dataPath, currentFolder)
 
-% Instructions
-% Create a folder with the name you want to use as the condition name
-% Put all the linkedTracks.mat files for that condition in the folder
+%% Open the folder and find the data
 
-% Notes
-% This code does not interpolate/tracks are not linked
-
-% Dependencies
-% fix_tracks_allfields
-% get_mat_from_tracks
-% getSpeedAnalysis
-
-%% Find all the linkedTracks Files
-
-% Clear pre-existing data
-clear
-
-% Save the current path
-analysisPath = pwd;
-
-% Let user select directory
-dirPath = uigetdir('Select directory');
-pathParts = split(dirPath, filesep);
-conditionName = pathParts{end};
+% Go to the folder
+dirPath = strcat(dataPath, '\', currentFolder);
+cd(dirPath);
+conditionName = currentFolder;
 
 % Get all .mat files ending with linkedTracks.mat
 filePattern = fullfile(dirPath, '*linkedTracks.mat');
 files = dir(filePattern);
 fileNames = string({files.name});
 
+
 %% Extract, Concatenate, and Export Data
 
 % Go to the place where the data is 
-cd(dirPath);
+cd(dirPath); % you should be here already
 
 % Housekeeping
 nFiles = length(fileNames);
@@ -97,6 +80,3 @@ clearvars -except analysisPath dirPath conditionName unlinkedDataName
 %% Extract Speed, Roaming, and Dwelling Data
 
 getSpeedAnalysis(dirPath, unlinkedDataName, conditionName)
-
-%% Come back
-cd(analysisPath)
