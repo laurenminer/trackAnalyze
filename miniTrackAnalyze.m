@@ -1,4 +1,4 @@
-function miniTrackAnalyze(dataPath, currentFolder)
+function miniTrackAnalyze(dataPath, currentFolder, analysisPath)
 
 %% Open the folder and find the data
 

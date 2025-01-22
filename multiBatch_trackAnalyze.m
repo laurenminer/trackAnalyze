@@ -33,6 +33,6 @@ folderNames = {folders(~ismember({folders.name}, {'.', '..'})).name};
 
 for i = 1:size(folderNames, 2)
     currentFolder = folderNames{i};
-    miniTrackAnalyze(dataPath, currentFolder);
+    miniTrackAnalyze(dataPath, currentFolder, analysisPath);
 end 
 
