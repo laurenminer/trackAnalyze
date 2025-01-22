@@ -1,4 +1,6 @@
-## The trackAnalyze Package processes a set of linkedTracks.mat files and reports back analyzed speed and roaming/dwelling state information.
+## trackAnalyze
+The trackAnalyze Package processes a set of linkedTracks.mat files and reports back analyzed speed and roaming/dwelling state information.
+Note: the transition and emission matricies used in the Hidden Markov Model are pre-set based on Flavell 2013.
 
 # Prepare your data
 To prepare your data for analysis, put all the linkedTracks files for a given condtion in a folder with nothing else. The name of this folder will be the condition name displayed on graphs. If you have single condition, you can use the singleBatch_trackAnalyze script. Navigate to that folder when you are prompted.
@@ -47,4 +49,5 @@ All the parameters you would want to change depending on your experiment are in 
    2. binSec is how many seconds you want to group in a bin (the data in this bin gets averaged together to make one point). Both Flavell 2013 and Ben Arous 2009 use 10 second bins, this is the preset value. Bins are pre-established for all videos based on linear time (not based on when you start having non-nan data in a track, see iv below if you don't know what that means).
    3. totalFrames is how long you expect your video to be. If an input video/linkedTracks file is longer or shorter than that, the code will cut off extra data or pad the data with NaN values (not plotted) so you don't get errors. My videos are 1 hr/10800 frames long so this is the preset value.
    4. nanLimit. Sometimes the tracker loses track of a worm or worms overlap. This data is not interpolated and instead shows up as NaN values. The nanLimit is how many nan frames you want to allow in a bin and still use that bin. If the code does not use that bin, it will replace whatever it would have calulated in that bin with NaN for all calculations. If you have the same frame rate (3) and bin size (10s) as me, then there are 30 frames in a bin. I only allow 3 of those values to be NaN (90% of the data is there), so 3 is the preset. This was an arbitrary decision.
+
    
