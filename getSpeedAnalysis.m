@@ -1,13 +1,12 @@
-%% Roaming and Dwelling Calculations
+function getSpeedAnalysis(unlinkedDataName)
+
 
 % Calculates the speed in 10 second intervals
 % Intervals are pre-set as consecutive blocks of 30 frames
 % Calculation is not performed if there are more than 3 frames missing
 
 %% Load Data
-
-clear
-load('N2.unlinkData.mat')
+load(unlinkedDataName)
 
 %% Variables/Housekeeping
 
@@ -23,16 +22,16 @@ speedPoint = 0.05; % MAY CHANGE - speed threshold for roaming vs dwelling
 binSize = frameRate * binSec; %calculate how many frames are in ten seconds
 nBins = totalFrames/binSize;
 videoSec = totalFrames/frameRate;
-nVideos = size(unlinkData, 2);
+nVideos = size(unlinkedData, 2);
 
 %% Bin the data into 10 second intervals
 
 % Set up a structure to store our information
-rdStructure = struct('Name', cell(1,size(unlinkData, 2)));
+rdStructure = struct('Name', cell(1,size(unlinkedData, 2)));
 
-% Fill in the video names from the unlinkData structure
+% Fill in the video names from the unlinkedData structure
 for v = 1:nVideos
-    rdStructure(v).Name= unlinkData(v).Name;
+    rdStructure(v).Name= unlinkedData(v).Name;
 end 
 
 % Set up a record of the first and last frame and second in each bin
@@ -47,9 +46,9 @@ end
 
 for v = 1:nVideos % for each video
     allSpeeds = []; % set up to store all the binned speed data for a single video
-    for w = 1:size(unlinkData(v).Speed, 1) % for each worm (row)
+    for w = 1:size(unlinkedData(v).Speed, 1) % for each worm (row)
         speedData = [] ; % set up an empty vector
-        speedData = unlinkData(v).Speed(w,:); % put the worm's speed in that vector
+        speedData = unlinkedData(v).Speed(w,:); % put the worm's speed in that vector
         
         % check/fix any short or long video errors
         if size(speedData, 2) == totalFrames % if we have the right number of frames
@@ -90,9 +89,9 @@ end
 
 for v = 1:nVideos % for each video
     allAngSpeeds = []; % set up to store all the binned speed data for a single video
-    for w = 1:size(unlinkData(v).Speed, 1) % for each worm (row)
+    for w = 1:size(unlinkedData(v).Speed, 1) % for each worm (row)
         angspeedData = [] ; % set up an empty vector
-        angspeedData = unlinkData(v).AngSpeed(w,:); % put the worm's speed in that vector
+        angspeedData = unlinkedData(v).AngSpeed(w,:); % put the worm's speed in that vector
         
         % check/fix any short or long video errors
         if size(angspeedData, 2) == totalFrames % if we have the right number of frames

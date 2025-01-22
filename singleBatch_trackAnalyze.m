@@ -10,6 +10,7 @@
 % Dependencies
 % fix_tracks_allfields
 % get_mat_from_tracks
+% getSpeedAnalysis
 
 %% Find all the linkedTracks Files
 
@@ -85,3 +86,14 @@ end
 
 % Go back to the analysis folder
 cd(analysisPath)
+
+%% Housekeeping
+
+pathParts = split(savename, filesep);
+unlinkedDataName = pathParts{end};
+
+clearvars -except analysisPath dirPath conditionName unlinkedDataName
+
+%% Extract Speed, Roaming, and Dwelling Data
+
+getSpeedAnalysis(unlinkedDataName)
