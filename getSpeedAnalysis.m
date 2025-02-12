@@ -13,17 +13,17 @@ load(unlinkedDataName)
 % 0 is do not plot
 % 1 is plot
 speed_time_scatter = 0; 
-speed_time_heatmap = 1;
+speed_time_heatmap = 0;
 ang_time_scatter = 0;
 ang_time_heatmap = 0;
 speed_ang_scatter = 0;
 speed_ang_heatmap = 1;
 speed_curve_scatter = 0;
-speed_curve_heatmap = 1;
-speed_time_plate = 1;
-roam_dwell_speed_ang = 1;
-roam_dwell_only_speed = 1;
-roam_dwell_speed_curve= 1;
+speed_curve_heatmap = 0;
+speed_time_plate = 0;
+roam_dwell_speed_ang = 0;
+roam_dwell_only_speed = 0;
+roam_dwell_speed_curve= 0;
 
 % Do you want the plots to pop up and stay up or close
 % 0 = keep them up
@@ -505,6 +505,15 @@ if speed_ang_heatmap == 1
     y = x/setPoint;  %(default 1/450, range 1/270 - 1/550 in Flavell 2013)
     plot(x, y, 'r-', 'LineWidth', 2);
     hold off;
+    
+    % Label the heatmap key
+    c = colorbar;
+    c.Label.String = 'Fraction of data points';
+    c.Label.FontSize = 12;
+    c.Label.Rotation = 270;
+    
+    % Adjust the axes position to make room for colorbar
+    c.Label.Position = c.Label.Position + [1 0 0];  % Move label slightly to the right
     
     % Save Figure
     figureName = strcat(conditionName, '.Speed-Ang-Heatmap');
